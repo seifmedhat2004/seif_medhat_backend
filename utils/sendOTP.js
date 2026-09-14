@@ -1,6 +1,9 @@
 const axios = require("axios");
 
 const sendOTPEmail = async (toEmail, otp, userName) => {
+  console.log("Brevo API key exists:", !!process.env.BREVO_API_KEY);
+
+  console.log("Brevo API key length:", process.env.BREVO_API_KEY?.length);
   await axios.post(
     "https://api.brevo.com/v3/smtp/email",
     {
