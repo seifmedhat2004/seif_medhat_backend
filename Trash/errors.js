@@ -5,7 +5,7 @@ exports.notFoundError = (message, code) => {
   error.customCode = code;
   throw error;
 };
-exports.badRequsetError = (message, code) => {
+exports.badRequestError = (message, code) => {
   const error = new Error(message);
   error.statusCode = 400;
   error.success = false;
@@ -30,6 +30,14 @@ exports.PaymentRequiredError = (message, code) => {
 exports.RequestTimeoutError = (message, code) => {
   const error = new Error(message);
   error.statusCode = 408;
+  error.success = false;
+  error.customCode = code;
+  throw error;
+};
+
+exports.forbiddenError = (message, code) => {
+  const error = new Error(message);
+  error.statusCode = 403;
   error.success = false;
   error.customCode = code;
   throw error;
