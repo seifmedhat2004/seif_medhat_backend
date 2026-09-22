@@ -6,13 +6,6 @@ const projectCategorySchema = new mongoose.Schema({
     unique: true,
   },
 
-  slug: {
-    type: [String],
-    required: true,
-    unique: true,
-    lowercase: true,
-  },
-
   icon: {
     type: String,
     required: true,

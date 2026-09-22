@@ -1,28 +1,27 @@
 const mongoose = require("mongoose");
 const projectSchema = new mongoose.Schema({
-  projectName: {
+  title: {
     type: String,
     required: true,
     trim: true,
   },
-
+  subtitle: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   projectCategory: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ProjectCategory",
-  },
-  
-  slug: {
-    type: [String],
     required: true,
-    unique: true,
   },
 
-  shortDescription: {
+
+  description: {
     type: String,
     required: true,
   },
-
-  description: {
+  longOverview: {
     type: String,
     required: true,
   },
@@ -51,19 +50,13 @@ const projectSchema = new mongoose.Schema({
     },
   ],
 
-  technologies: [
-    {
-      type: String,
-    },
-  ],
-
-  startDate: {
-    type: Date,
+  technologies: {
+    type: [String],
     required: true,
   },
 
-  endDate: {
-    type: Date,
+  year: {
+    type: String,
     required: true,
   },
 
@@ -78,8 +71,17 @@ const projectSchema = new mongoose.Schema({
   projectStatus: {
     type: String,
     enum: ["draft", "published", "archived"],
+    default: "draft",
   },
 
+  keyConcepts: {
+    type: [String],
+    required: true,
+  },
+  systemProcess: {
+    type: [String],
+    required: true,
+  },
   isFeatured: {
     type: Boolean,
     default: false,
