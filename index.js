@@ -5,12 +5,45 @@ const authRoutes = require("./Routes/auth/authRoutes");
 const adminMessageRoutes = require("./Routes/admin/messageRoutes");
 const userMessageRoutes = require("./Routes/user/messageRoutes");
 const errorHandler = require("./Middlewares/errorMiddleware");
-
+const helmet = require("helmet");
+const hpp = require("hpp");
+const cors = require("cors");
+const compression = require("compression");
+const mongoSanitize = require("express-mongo-sanitize");
 const app = express();
 
-connectDb();
+app.use(helmet());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://seif-medhat.vercel.app",
+];
 
-app.use(express.json());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }),
+);
+// Prevent NoSQL Injection
+app.use(mongoSanitize());
+// Prevent HTTP Parameter Pollution
+app.use(hpp());
+// Disable Express signature
+app.disable("x-powered-by");
+
+// Limit JSON body size (protect against DoS)
+app.use(express.json({ limit: "10kb" }));
+// Limit URL-encoded body size (protect against DoS)
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+// Compress responses (improve performance)
+app.use(compression());
+connectDb();
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/admin", adminMessageRoutes);
