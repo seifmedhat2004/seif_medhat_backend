@@ -75,6 +75,8 @@ exports.verifyOTPService = async (otpVerification) => {
   await OtpModel.deleteOne({ _id: OTP._id });
 
   return {
+    success:true,
+    message:"Welcome Boss",
     token: generateToken(OTP.email),
   };
 };
