@@ -9,7 +9,6 @@ const helmet = require("helmet");
 const hpp = require("hpp");
 const cors = require("cors");
 const compression = require("compression");
-const mongoSanitize = require("express-mongo-sanitize");
 const app = express();
 
 app.use(helmet());
@@ -30,8 +29,7 @@ app.use(
     credentials: true,
   }),
 );
-// Prevent NoSQL Injection
-app.use(mongoSanitize());
+
 // Prevent HTTP Parameter Pollution
 app.use(hpp());
 // Disable Express signature
