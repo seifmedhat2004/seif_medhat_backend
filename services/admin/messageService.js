@@ -8,7 +8,7 @@ const errors = require("../../Trash/errors");
  */
 
 exports.getAllMessagesService = async () => {
-  const messages = await Message.find().select("name email message");
+  const messages = await Message.find().select("name email");
   if (!messages.length) {
     errors.notFoundError("no messages found", "NO_MESSAGES_FOUND");
   }
