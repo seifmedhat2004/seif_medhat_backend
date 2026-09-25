@@ -17,4 +17,4 @@ const projectCategorySchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("ProjectCategory", projectCategorySchema);
+module.exports = mongoose.model("Category", projectCategorySchema);

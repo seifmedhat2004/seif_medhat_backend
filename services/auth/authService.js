@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const errors = require("../../Trash/errors");
 const OtpModel = require("../../models/OtpModel");
 const generateToken = require("../../utils/generateToken");
