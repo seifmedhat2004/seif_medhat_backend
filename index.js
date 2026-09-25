@@ -4,6 +4,7 @@ const connectDb = require("./config/db_connection");
 const authRoutes = require("./Routes/auth/authRoutes");
 const adminMessageRoutes = require("./Routes/admin/messageRoutes");
 const userMessageRoutes = require("./Routes/user/messageRoutes");
+const categoryRoutes = require("./Routes/admin/categoryRoutes");
 const errorHandler = require("./Middlewares/errorMiddleware");
 const helmet = require("helmet");
 const hpp = require("hpp");
@@ -46,6 +47,7 @@ connectDb();
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/admin", adminMessageRoutes);
 app.use("/api/v1/user", userMessageRoutes);
+app.use("/api/v1/admin", categoryRoutes);
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 5555, () => {
