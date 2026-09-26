@@ -5,6 +5,7 @@ const authRoutes = require("./Routes/auth/authRoutes");
 const adminMessageRoutes = require("./Routes/admin/messageRoutes");
 const userMessageRoutes = require("./Routes/user/messageRoutes");
 const categoryRoutes = require("./Routes/admin/categoryRoutes");
+const profileRoutres = require("./Routes/admin/profileRoutes");
 const errorHandler = require("./Middlewares/errorMiddleware");
 const helmet = require("helmet");
 const hpp = require("hpp");
@@ -48,6 +49,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/admin", adminMessageRoutes);
 app.use("/api/v1/user", userMessageRoutes);
 app.use("/api/v1/admin", categoryRoutes);
+app.use("/api/v1/admin", profileRoutres);
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 5555, () => {
