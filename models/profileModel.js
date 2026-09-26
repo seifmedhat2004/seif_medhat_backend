@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema(
   {
+    singletonKey: {
+      type: String,
+      default: "main",
+      unique: true,
+      required: true,
+    },
     displayName: {
       type: String,
       required: true,
@@ -11,7 +17,7 @@ const profileSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    eyeBrow: {
+    eyebrow: {
       type: String,
       required: true,
     },
@@ -51,7 +57,7 @@ const profileSchema = new mongoose.Schema(
         title: String,
         specialization: String,
         description: String,
-        keyLearing: [String],
+        keyLearning: [String],
       },
     ],
   },
