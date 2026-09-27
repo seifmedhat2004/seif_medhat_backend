@@ -37,18 +37,21 @@ const projectSchema = new mongoose.Schema(
       },
     },
 
-    gallery: [
-      {
-        url: {
-          type: String,
-          required: true,
+    gallery: {
+      type: [
+        {
+          url: {
+            type: String,
+            required: true,
+          },
+          publicId: {
+            type: String,
+            required: true,
+          },
         },
-        publicId: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+      ],
+      default: [],
+    },
 
     technologies: {
       type: [String],
