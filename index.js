@@ -5,6 +5,8 @@ const authRoutes = require("./Routes/auth/authRoutes");
 const adminMessageRoutes = require("./Routes/admin/messageRoutes");
 const userMessageRoutes = require("./Routes/user/messageRoutes");
 const categoryRoutes = require("./Routes/admin/categoryRoutes");
+const projectRoutes = require("./Routes/admin/projectRoutes");
+const projectUserRoutes = require("./Routes/user/projectsRoutes");
 const profileRoutres = require("./Routes/admin/profileRoutes");
 const skillRouters = require("./Routes/admin/skillRoutes");
 const errorHandler = require("./Middlewares/errorMiddleware");
@@ -51,6 +53,8 @@ app.use("/api/v1/admin", adminMessageRoutes);
 app.use("/api/v1/user", userMessageRoutes);
 app.use("/api/v1/admin", categoryRoutes);
 app.use("/api/v1/admin", profileRoutres);
+app.use("/api/v1/admin", projectRoutes);
+app.use("/api/v1/user", projectUserRoutes);
 app.use("/api/v1/admin", skillRouters);
 app.use(errorHandler);
 

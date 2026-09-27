@@ -1,44 +1,32 @@
 const mongoose = require("mongoose");
-const projectSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  subtitle: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  projectCategory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "ProjectCategory",
-    required: true,
-  },
+const projectSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    subtitle: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    projectCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
 
-
-  description: {
-    type: String,
-    required: true,
-  },
-  longOverview: {
-    type: String,
-    required: true,
-  },
-
-  mainImage: {
-    url: {
+    description: {
       type: String,
       required: true,
     },
-    publicId: {
+    longOverview: {
       type: String,
       required: true,
     },
-  },
 
-  gallery: [
-    {
+    mainImage: {
       url: {
         type: String,
         required: true,
@@ -48,44 +36,58 @@ const projectSchema = new mongoose.Schema({
         required: true,
       },
     },
-  ],
 
-  technologies: {
-    type: [String],
-    required: true,
-  },
+    gallery: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+        publicId: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
 
-  year: {
-    type: String,
-    required: true,
-  },
+    technologies: {
+      type: [String],
+      required: true,
+    },
 
-  githubUrl: {
-    type: String,
-  },
+    year: {
+      type: String,
+      required: true,
+    },
 
-  liveDemoUrl: {
-    type: String,
-  },
+    githubUrl: {
+      type: String,
+    },
 
-  projectStatus: {
-    type: String,
-    enum: ["draft", "published", "archived"],
-    default: "draft",
-  },
+    liveDemoUrl: {
+      type: String,
+    },
 
-  keyConcepts: {
-    type: [String],
-    required: true,
+    projectStatus: {
+      type: String,
+      enum: ["draft", "published", "archived"],
+      default: "draft",
+    },
+
+    keyConcepts: {
+      type: [String],
+      required: true,
+    },
+    systemProcess: {
+      type: [String],
+      required: true,
+    },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
   },
-  systemProcess: {
-    type: [String],
-    required: true,
-  },
-  isFeatured: {
-    type: Boolean,
-    default: false,
-  },
-});
+  { timestamps: true },
+);
 
 module.exports = mongoose.model("Project", projectSchema);
