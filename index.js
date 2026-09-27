@@ -4,11 +4,12 @@ const connectDb = require("./config/db_connection");
 const authRoutes = require("./Routes/auth/authRoutes");
 const adminMessageRoutes = require("./Routes/admin/messageRoutes");
 const userMessageRoutes = require("./Routes/user/messageRoutes");
+const portfolioRoutes = require("./Routes/user/protfolioRoutes");
 const categoryRoutes = require("./Routes/admin/categoryRoutes");
+const profileRoutes = require("./Routes/admin/profileRoutes");
 const projectRoutes = require("./Routes/admin/projectRoutes");
 const dashboardRoutes = require("./Routes/admin/dashboardRoutes");
 const projectUserRoutes = require("./Routes/user/projectsRoutes");
-const profileRoutres = require("./Routes/admin/profileRoutes");
 const skillRouters = require("./Routes/admin/skillRoutes");
 const errorHandler = require("./Middlewares/errorMiddleware");
 const helmet = require("helmet");
@@ -48,16 +49,23 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 // Compress responses (improve performance)
 app.use(compression());
 connectDb();
-
+//===================================================
+//                     admin
+//===================================================
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/admin", adminMessageRoutes);
-app.use("/api/v1/user", userMessageRoutes);
 app.use("/api/v1/admin", categoryRoutes);
-app.use("/api/v1/admin", profileRoutres);
-app.use("/api/v1/admin", dashboardRoutes);
-app.use("/api/v1/admin", projectRoutes);
-app.use("/api/v1/user", projectUserRoutes);
+app.use("/api/v1/admin", profileRoutes);
 app.use("/api/v1/admin", skillRouters);
+app.use("/api/v1/admin", projectRoutes);
+app.use("/api/v1/admin", dashboardRoutes);
+//===================================================
+//                     user
+//===================================================
+app.use("/api/v1/user", userMessageRoutes);
+app.use("/api/v1/user", portfolioRoutes);
+app.use("/api/v1/user", projectUserRoutes);
+
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 5555, () => {
