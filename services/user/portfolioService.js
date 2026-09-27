@@ -12,7 +12,7 @@ exports.getPortfolioService = async () => {
     Projects.find({
       projectStatus: "published",
     })
-      .select("title description mainImage technologies year githubUrl")
+      .select("title description mainImage technologies year githubUrl projectCategory").populate("projectCategory", "name icon accentColor")
       .limit(4),
 
     Category.find(),

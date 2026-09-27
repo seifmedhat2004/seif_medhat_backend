@@ -50,22 +50,20 @@ exports.addProjectService = async (projectData, files) => {
     systemProcess,
   );
 
+  // Main image is required
   if (!files?.mainImage?.[0]) {
     errors.badRequestError("Main image is required", "MAIN_IMAGE_IS_REQUIRED");
   }
 
-  if (!files?.gallery?.length) {
-    errors.badRequestError(
-      "Gallery images are required",
-      "GALLERY_IS_REQUIRED",
-    );
-  }
-
+  // Upload main image
   const mainImage = await uploadToCloudinary(files.mainImage[0].buffer);
 
-  const galleryImages = await Promise.all(
-    files.gallery.map((file) => uploadToCloudinary(file.buffer)),
-  );
+  // Gallery is optional
+  const galleryImages = files?.gallery?.length
+    ? await Promise.all(
+        files.gallery.map((file) => uploadToCloudinary(file.buffer)),
+      )
+    : [];
 
   const project = await Project.create({
     title,
