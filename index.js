@@ -10,6 +10,7 @@ const profileRoutes = require("./Routes/admin/profileRoutes");
 const projectRoutes = require("./Routes/admin/projectRoutes");
 const dashboardRoutes = require("./Routes/admin/dashboardRoutes");
 const projectUserRoutes = require("./Routes/user/projectsRoutes");
+const certificationRoutes = require("./Routes/admin/certificationRoutes");
 const skillRouters = require("./Routes/admin/skillRoutes");
 const errorHandler = require("./Middlewares/errorMiddleware");
 const helmet = require("helmet");
@@ -59,6 +60,7 @@ app.use("/api/v1/admin", profileRoutes);
 app.use("/api/v1/admin", skillRouters);
 app.use("/api/v1/admin", projectRoutes);
 app.use("/api/v1/admin", dashboardRoutes);
+app.use("/api/v1/admin", certificationRoutes);
 //===================================================
 //                     user
 //===================================================
