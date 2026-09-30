@@ -43,7 +43,7 @@ exports.addCertificationService = async (certificateData, files) => {
   // Upload main image
   const mainImage = await uploadToCloudinary(files.mainImage[0].buffer);
 
-  const certificate = await Certification.create({
+  const certification = await Certification.create({
     title,
     organization,
     issueDate,
@@ -59,7 +59,7 @@ exports.addCertificationService = async (certificateData, files) => {
   return {
     success: true,
     message: "Certification added successfully",
-    certificate,
+    certification,
   };
 };
 
@@ -103,7 +103,6 @@ exports.updateCertificationService = async (
   };
 };
 
-
 //getAllCertificationService
 exports.getAllCertificationService = async () => {
   const certifications = await Certification.find();
@@ -118,13 +117,24 @@ exports.getAllCertificationService = async () => {
 };
 
 //deleteCertificationService =(certificatID)
+// delete certification
 exports.deleteCertificationService = async (certificatID) => {
-  const certification = await Certification.findByIdAndDelete(certificatID);
+  const certification = await Certification.findById(certificatID);
+
   if (!certification) {
     errors.notFoundError("Certification not found", "CERTIFICATION_NOT_FOUND");
   }
+
+  // Delete certification image from Cloudinary
+  if (certification.image?.publicId) {
+    await cloudinary.uploader.destroy(certification.image.publicId);
+  }
+
+  // Delete certification from MongoDB
+  await Certification.findByIdAndDelete(certificatID);
+
   return {
     success: true,
-    message: "certification deleted successfully",
+    message: "Certification deleted successfully",
   };
 };
