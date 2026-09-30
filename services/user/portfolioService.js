@@ -5,7 +5,7 @@ const Projects = require("../../models/projectsModel");
 const Certification = require("../../models/certificateModel");
 
 exports.getPortfolioService = async () => {
-  const [profile, skills, projects, category, certification] =
+  const [profile, skills, projects, category, certifications] =
     await Promise.all([
       Profile.findOne({ singletonKey: "main" }),
 
@@ -32,7 +32,7 @@ exports.getPortfolioService = async () => {
       projects,
       skills,
       category,
-      certification,
+      certifications,
     },
   };
 };
