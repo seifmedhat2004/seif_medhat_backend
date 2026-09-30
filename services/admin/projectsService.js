@@ -128,14 +128,33 @@ exports.getProjectDetailsService = async (projectID) => {
 };
 
 //delete project
+// delete project
 exports.deleteProjectService = async (projectID) => {
-  const project = await Project.findByIdAndDelete(projectID);
+  const project = await Project.findById(projectID);
+
   if (!project) {
     errors.notFoundError("project not found", "PROJECT_NOT_FOUND");
   }
+
+  // Delete main image from Cloudinary
+  if (project.mainImage?.publicId) {
+    await cloudinary.uploader.destroy(project.mainImage.publicId);
+  }
+
+  // Delete gallery images from Cloudinary
+  if (Array.isArray(project.gallery)) {
+    await Promise.all(
+      project.gallery
+        .filter((image) => image?.publicId)
+        .map((image) => cloudinary.uploader.destroy(image.publicId)),
+    );
+  }
+
+  await Project.findByIdAndDelete(projectID);
+
   return {
     success: true,
-    message: "project deleted successfully",
+    message: "Project deleted successfully",
   };
 };
 
